@@ -7,27 +7,113 @@
       height: 100vh;
       background: lightblue;
       display: flex;
-      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .video-container {
+      position: relative;
+      width: 80%;
+      max-width: 900px;
+    }
+
+    video {
+      width: 100%;
+      border-radius: 20px;
+      display: block;
+    }
+
+    /* Pastel button */
+    .control-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90px;
+      height: 90px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      display: flex;
       align-items: center;
       justify-content: center;
-      gap: 20px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .control-btn:hover {
+      transform: translate(-50%, -50%) scale(1.08);
+    }
+
+    /* Play triangle */
+    .play {
+      width: 0;
+      height: 0;
+      border-top: 18px solid transparent;
+      border-bottom: 18px solid transparent;
+      border-left: 28px solid #ddd;
+      margin-left: 5px;
+    }
+
+    /* Stop square */
+    .stop {
+      width: 26px;
+      height: 26px;
+      background: #ddd;
+      border-radius: 6px;
+    }
+
+    .hidden {
+      display: none;
     }
   </style>
 </head>
 <body>
 
-  <!-- Video -->
-  <video width="480" controls>
-    <source src="cassette.spinning.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+  <div class="video-container">
+    <video id="myVideo" loop muted>
+      <source src="cassette.spinning.mp4" type="video/mp4">
+    </video>
 
-  <!-- Audio -->
-  <audio controls>
-    <source src="multi.track.comp.mp3" type="audio/mpeg">
-    Your browser does not support the audio tag.
-  </audio>
+    <audio id="myAudio">
+      <source src="amulti.track.comp.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="controlBtn" class="control-btn">
+      <div id="playIcon" class="play"></div>
+      <div id="stopIcon" class="stop hidden"></div>
+    </div>
+  </div>
+
+  <script>
+    const video = document.getElementById("myVideo");
+    const audio = document.getElementById("myAudio");
+    const btn = document.getElementById("controlBtn");
+    const playIcon = document.getElementById("playIcon");
+    const stopIcon = document.getElementById("stopIcon");
+
+    function playMedia() {
+      video.play();
+      audio.play();
+      playIcon.classList.add("hidden");
+      stopIcon.classList.remove("hidden");
+    }
+
+    function stopMedia() {
+      video.pause();
+      audio.pause();
+      playIcon.classList.remove("hidden");
+      stopIcon.classList.add("hidden");
+    }
+
+    btn.addEventListener("click", () => {
+      if (video.paused) {
+        playMedia();
+      } else {
+        stopMedia();
+      }
+    });
+  </script>
 
 </body>
 </html>
-
