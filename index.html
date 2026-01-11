@@ -1,118 +1,80 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <title>Cassette Page</title>
   <style>
     body {
       margin: 0;
       height: 100vh;
-      background: lightblue;
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
+      background-color: #cfe9f6; /* light blue */
+      font-family: sans-serif;
     }
 
-    .video-container {
-      position: relative;
-      width: 80%;
-      max-width: 900px;
+    .page {
+      width: 320px;
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 12px;
+      text-align: center;
     }
 
     video {
       width: 100%;
-      border-radius: 20px;
+      border-radius: 8px;
       display: block;
+      margin-bottom: 12px;
     }
 
-    /* Pastel button */
-    .control-btn {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 90px;
-      height: 90px;
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 50%;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .controls button {
+      padding: 8px 14px;
+      margin: 0 6px;
+      font-size: 14px;
       cursor: pointer;
-      transition: transform 0.2s ease;
-    }
-
-    .control-btn:hover {
-      transform: translate(-50%, -50%) scale(1.08);
-    }
-
-    /* Play triangle */
-    .play {
-      width: 0;
-      height: 0;
-      border-top: 18px solid transparent;
-      border-bottom: 18px solid transparent;
-      border-left: 28px solid #ddd;
-      margin-left: 5px;
-    }
-
-    /* Stop square */
-    .stop {
-      width: 26px;
-      height: 26px;
-      background: #ddd;
+      border: none;
       border-radius: 6px;
+      background-color: #6fb6de;
+      color: white;
     }
 
-    .hidden {
-      display: none;
+    .controls button:hover {
+      background-color: #5aa5cf;
     }
   </style>
 </head>
 <body>
 
-  <div class="video-container">
-    <video id="myVideo" loop muted>
-      <source src="cassette.spinning.mp4" type="video/mp4">
+  <div class="page">
+    <video
+      src="cassettean.webm"
+      autoplay
+      loop
+      muted
+      playsinline>
     </video>
 
-    <audio id="myAudio">
-      <source src="amulti.track.comp.mp3" type="audio/mpeg">
-    </audio>
-
-    <div id="controlBtn" class="control-btn">
-      <div id="playIcon" class="play"></div>
-      <div id="stopIcon" class="stop hidden"></div>
+    <div class="controls">
+      <button onclick="playAudio()">Play</button>
+      <button onclick="stopAudio()">Stop</button>
     </div>
+
+    <audio id="audio" src="multi.track.comp.mp3"></audio>
   </div>
 
   <script>
-    const video = document.getElementById("myVideo");
-    const audio = document.getElementById("myAudio");
-    const btn = document.getElementById("controlBtn");
-    const playIcon = document.getElementById("playIcon");
-    const stopIcon = document.getElementById("stopIcon");
+    const audio = document.getElementById("audio");
 
-    function playMedia() {
-      video.play();
+    function playAudio() {
       audio.play();
-      playIcon.classList.add("hidden");
-      stopIcon.classList.remove("hidden");
     }
 
-    function stopMedia() {
-      video.pause();
+    function stopAudio() {
       audio.pause();
-      playIcon.classList.remove("hidden");
-      stopIcon.classList.add("hidden");
+      audio.currentTime = 0;
     }
-
-    btn.addEventListener("click", () => {
-      if (video.paused) {
-        playMedia();
-      } else {
-        stopMedia();
-      }
-    });
   </script>
 
 </body>
