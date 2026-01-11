@@ -10,7 +10,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: #000; /* black background */
+      background-color: #000;
       font-family: sans-serif;
     }
 
@@ -27,22 +27,19 @@
       max-height: 70vh;
       object-fit: contain;
       border-radius: 12px;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
 
-    .controls button {
-      padding: 10px 18px;
-      margin: 0 8px;
-      font-size: 15px;
+    .click {
+      color: #fff;
+      font-size: 16px;
       cursor: pointer;
-      border: none;
-      border-radius: 8px;
-      background-color: #1e90ff; /* brighter blue for contrast */
-      color: white;
+      user-select: none;
+      letter-spacing: 0.08em;
     }
 
-    .controls button:hover {
-      background-color: #1873cc;
+    .click:hover {
+      opacity: 0.7;
     }
   </style>
 </head>
@@ -57,24 +54,23 @@
       playsinline>
     </video>
 
-    <div class="controls">
-      <button onclick="playAudio()">Play</button>
-      <button onclick="stopAudio()">Stop</button>
-    </div>
+    <div class="click" onclick="toggleAudio()">click</div>
 
     <audio id="audio" src="multi.track.comp.mp3"></audio>
   </div>
 
   <script>
     const audio = document.getElementById("audio");
+    let isPlaying = false;
 
-    function playAudio() {
-      audio.play();
-    }
-
-    function stopAudio() {
-      audio.pause();
-      audio.currentTime = 0;
+    function toggleAudio() {
+      if (isPlaying) {
+        audio.pause();
+        audio.currentTime = 0;
+      } else {
+        audio.play();
+      }
+      isPlaying = !isPlaying;
     }
   </script>
 
